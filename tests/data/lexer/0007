@@ -1,0 +1,55 @@
+int1 = +99
+int2 = 42
+int3 = 0
+int4 = -17
+
+int5 = 1_000
+int6 = 5_349_221
+int7 = 1_2_3_4_5     # VALID but discouraged
+
+---
+BARE_KEY   'int1'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+INTEGER    '+99'
+LINE_END   '\n'
+BARE_KEY   'int2'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+INTEGER    '42'
+LINE_END   '\n'
+BARE_KEY   'int3'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+INTEGER    '0'
+LINE_END   '\n'
+BARE_KEY   'int4'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+INTEGER    '-17'
+LINE_END   '\n'
+LINE_END   '\n'
+BARE_KEY   'int5'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+INTEGER    '1_000'
+LINE_END   '\n'
+BARE_KEY   'int6'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+INTEGER    '5_349_221'
+LINE_END   '\n'
+BARE_KEY   'int7'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+INTEGER    '1_2_3_4_5'
+WHITESPACE '     '
+COMMENT    '# VALID but discouraged'
+LINE_END   '\n'

@@ -1,0 +1,62 @@
+[[products]]
+name = "Hammer"
+sku = 738594937
+
+[[products]]
+
+[[products]]
+name = "Nail"
+sku = 284758393
+color = "gray"
+
+---
+OPEN_BRACKET  '['
+OPEN_BRACKET  '['
+BARE_KEY      'products'
+CLOSE_BRACKET ']'
+CLOSE_BRACKET ']'
+LINE_END      '\n'
+BARE_KEY      'name'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+BASIC_STRING  '"Hammer"'
+LINE_END      '\n'
+BARE_KEY      'sku'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+INTEGER       '738594937'
+LINE_END      '\n'
+LINE_END      '\n'
+OPEN_BRACKET  '['
+OPEN_BRACKET  '['
+BARE_KEY      'products'
+CLOSE_BRACKET ']'
+CLOSE_BRACKET ']'
+LINE_END      '\n'
+LINE_END      '\n'
+OPEN_BRACKET  '['
+OPEN_BRACKET  '['
+BARE_KEY      'products'
+CLOSE_BRACKET ']'
+CLOSE_BRACKET ']'
+LINE_END      '\n'
+BARE_KEY      'name'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+BASIC_STRING  '"Nail"'
+LINE_END      '\n'
+BARE_KEY      'sku'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+INTEGER       '284758393'
+LINE_END      '\n'
+BARE_KEY      'color'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+BASIC_STRING  '"gray"'
+LINE_END      '\n'

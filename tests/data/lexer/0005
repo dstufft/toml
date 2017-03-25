@@ -1,0 +1,36 @@
+str1 = "The quick brown fox jumps over the lazy dog."
+
+str2 = """
+The quick brown \
+
+
+  fox jumps over \
+    the lazy dog."""
+
+str3 = """\
+       The quick brown \
+       fox jumps"" over \
+       the lazy dog.\
+       """
+
+---
+BARE_KEY     'str1'
+WHITESPACE   ' '
+ASSIGNMENT   '='
+WHITESPACE   ' '
+BASIC_STRING '"The quick brown fox jumps over the lazy dog."'
+LINE_END     '\n'
+LINE_END     '\n'
+BARE_KEY     'str2'
+WHITESPACE   ' '
+ASSIGNMENT   '='
+WHITESPACE   ' '
+MULTILINE_BASIC_STRING '"""\nThe quick brown \\\n\n\n  fox jumps over \\\n    the lazy dog."""'
+LINE_END     '\n'
+LINE_END     '\n'
+BARE_KEY     'str3'
+WHITESPACE   ' '
+ASSIGNMENT   '='
+WHITESPACE   ' '
+MULTILINE_BASIC_STRING '"""\\\n       The quick brown \\\n       fox jumps"" over \\\n       the lazy dog.\\\n       """'
+LINE_END     '\n'

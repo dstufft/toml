@@ -1,0 +1,35 @@
+# This is a full-line comment
+key = "value" # This is a comment at the end of a line
+bare_key = "value"
+bare-key = "value"
+1234 = "value"
+
+---
+COMMENT      '# This is a full-line comment'
+LINE_END     '\n'
+BARE_KEY     'key'
+WHITESPACE   ' '
+ASSIGNMENT   '='
+WHITESPACE   ' '
+BASIC_STRING '"value"'
+WHITESPACE   ' '
+COMMENT      '# This is a comment at the end of a line'
+LINE_END     '\n'
+BARE_KEY     'bare_key'
+WHITESPACE   ' '
+ASSIGNMENT   '='
+WHITESPACE   ' '
+BASIC_STRING '"value"'
+LINE_END     '\n'
+BARE_KEY     'bare-key'
+WHITESPACE   ' '
+ASSIGNMENT   '='
+WHITESPACE   ' '
+BASIC_STRING '"value"'
+LINE_END     '\n'
+INTEGER      '1234'
+WHITESPACE   ' '
+ASSIGNMENT   '='
+WHITESPACE   ' '
+BASIC_STRING '"value"'
+LINE_END     '\n'

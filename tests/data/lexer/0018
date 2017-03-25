@@ -1,0 +1,16 @@
+[dog."tater.man"]
+type = "pug"
+
+---
+OPEN_BRACKET  '['
+BARE_KEY      'dog'
+PERIOD        '.'
+BASIC_STRING  '"tater.man"'
+CLOSE_BRACKET ']'
+LINE_END      '\n'
+BARE_KEY      'type'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+BASIC_STRING  '"pug"'
+LINE_END      '\n'

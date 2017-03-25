@@ -1,0 +1,71 @@
+# fractional
+flt1 = +1.0
+flt2 = 3.1415
+flt3 = -0.01
+
+# exponent
+flt4 = 5e+22
+flt5 = 1e6
+flt6 = -2E-2
+
+# both
+flt7 = 6.626e-34
+flt8 = 9_224_617.445_991_228_313
+
+---
+COMMENT    '# fractional'
+LINE_END   '\n'
+BARE_KEY   'flt1'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+FLOAT      '+1.0'
+LINE_END   '\n'
+BARE_KEY   'flt2'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+FLOAT      '3.1415'
+LINE_END   '\n'
+BARE_KEY   'flt3'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+FLOAT      '-0.01'
+LINE_END   '\n'
+LINE_END   '\n'
+COMMENT    '# exponent'
+LINE_END   '\n'
+BARE_KEY   'flt4'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+FLOAT      '5e+22'
+LINE_END   '\n'
+BARE_KEY   'flt5'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+FLOAT      '1e6'
+LINE_END   '\n'
+BARE_KEY   'flt6'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+FLOAT      '-2E-2'
+LINE_END   '\n'
+LINE_END   '\n'
+COMMENT    '# both'
+LINE_END   '\n'
+BARE_KEY   'flt7'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+FLOAT      '6.626e-34'
+LINE_END   '\n'
+BARE_KEY   'flt8'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+FLOAT      '9_224_617.445_991_228_313'
+LINE_END   '\n'

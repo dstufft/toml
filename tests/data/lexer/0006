@@ -1,0 +1,21 @@
+regex2 = '''I [dw]on't need \d{2} apples'''
+lines  = '''
+The first newline is
+trimmed in raw strings.
+  All other whitespace
+  is preserved.
+'''
+
+---
+BARE_KEY   'regex2'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+MULTILINE_LITERAL_STRING "\'\'\'I [dw]on\'t need \\d{2} apples\'\'\'"
+LINE_END   '\n'
+BARE_KEY   'lines'
+WHITESPACE '  '
+ASSIGNMENT '='
+WHITESPACE ' '
+MULTILINE_LITERAL_STRING "\'\'\'\nThe first newline is\ntrimmed in raw strings.\n  All other whitespace\n  is preserved.\n\'\'\'"
+LINE_END   '\n'

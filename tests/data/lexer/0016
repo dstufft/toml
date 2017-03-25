@@ -1,0 +1,7 @@
+[table]
+
+---
+OPEN_BRACKET  '['
+BARE_KEY      'table'
+CLOSE_BRACKET ']'
+LINE_END      '\n'

@@ -1,0 +1,16 @@
+bool1 = true
+bool2 = false
+
+---
+BARE_KEY   'bool1'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+BOOLEAN    'true'
+LINE_END   '\n'
+BARE_KEY   'bool2'
+WHITESPACE ' '
+ASSIGNMENT '='
+WHITESPACE ' '
+BOOLEAN    'false'
+LINE_END   '\n'

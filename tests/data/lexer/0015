@@ -1,0 +1,46 @@
+arr7 = [
+  1, 2, 3
+]
+
+arr8 = [
+  1,
+  2, # this is ok
+]
+
+---
+BARE_KEY      'arr7'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+OPEN_BRACKET  '['
+LINE_END      '\n'
+WHITESPACE    '  '
+INTEGER       '1'
+COMMA         ','
+WHITESPACE    ' '
+INTEGER       '2'
+COMMA         ','
+WHITESPACE    ' '
+INTEGER       '3'
+LINE_END      '\n'
+CLOSE_BRACKET ']'
+LINE_END      '\n'
+LINE_END      '\n'
+BARE_KEY      'arr8'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+OPEN_BRACKET  '['
+LINE_END      '\n'
+WHITESPACE    '  '
+INTEGER       '1'
+COMMA         ','
+LINE_END      '\n'
+WHITESPACE    '  '
+INTEGER       '2'
+COMMA         ','
+WHITESPACE    ' '
+COMMENT       '# this is ok'
+LINE_END      '\n'
+CLOSE_BRACKET ']'
+LINE_END      '\n'

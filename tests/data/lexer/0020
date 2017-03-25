@@ -1,0 +1,24 @@
+# [x] you
+# [x.y] don't
+# [x.y.z] need these
+[x.y.z.w] # for this to work
+
+---
+COMMENT       '# [x] you'
+LINE_END      '\n'
+COMMENT       "# [x.y] don\'t"
+LINE_END      '\n'
+COMMENT       '# [x.y.z] need these'
+LINE_END      '\n'
+OPEN_BRACKET  '['
+BARE_KEY      'x'
+PERIOD        '.'
+BARE_KEY      'y'
+PERIOD        '.'
+BARE_KEY      'z'
+PERIOD        '.'
+BARE_KEY      'w'
+CLOSE_BRACKET ']'
+WHITESPACE    ' '
+COMMENT       '# for this to work'
+LINE_END      '\n'

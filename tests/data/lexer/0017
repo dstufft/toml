@@ -1,0 +1,42 @@
+[table-1]
+key1 = "some string"
+key2 = 123
+
+[table-2]
+key1 = "another string"
+key2 = 456
+
+---
+OPEN_BRACKET  '['
+BARE_KEY      'table-1'
+CLOSE_BRACKET ']'
+LINE_END      '\n'
+BARE_KEY      'key1'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+BASIC_STRING  '"some string"'
+LINE_END      '\n'
+BARE_KEY      'key2'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+INTEGER       '123'
+LINE_END      '\n'
+LINE_END      '\n'
+OPEN_BRACKET  '['
+BARE_KEY      'table-2'
+CLOSE_BRACKET ']'
+LINE_END      '\n'
+BARE_KEY      'key1'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+BASIC_STRING  '"another string"'
+LINE_END      '\n'
+BARE_KEY      'key2'
+WHITESPACE    ' '
+ASSIGNMENT    '='
+WHITESPACE    ' '
+INTEGER       '456'
+LINE_END      '\n'

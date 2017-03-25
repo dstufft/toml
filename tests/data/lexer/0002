@@ -1,0 +1,9 @@
+key = "value"
+
+---
+BARE_KEY     'key'
+WHITESPACE   ' '
+ASSIGNMENT   '='
+WHITESPACE   ' '
+BASIC_STRING '"value"'
+LINE_END     '\n'

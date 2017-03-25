@@ -1,0 +1,55 @@
+"127.0.0.1" = "value"
+"character encoding" = "value"
+"ʎǝʞ" = "I'm a string. \"You can quote me\". Name\tJos\u00E9\nLocation\tSF."
+'key2' = "value"
+'quoted "value"' = "value"
+"" = "blank"     # VALID but discouraged
+'' = 'blank'     # VALID but discouraged
+
+---
+BASIC_STRING   '"127.0.0.1"'
+WHITESPACE     ' '
+ASSIGNMENT     '='
+WHITESPACE     ' '
+BASIC_STRING   '"value"'
+LINE_END       '\n'
+BASIC_STRING   '"character encoding"'
+WHITESPACE     ' '
+ASSIGNMENT     '='
+WHITESPACE     ' '
+BASIC_STRING   '"value"'
+LINE_END       '\n'
+BASIC_STRING   '"ʎǝʞ"'
+WHITESPACE     ' '
+ASSIGNMENT     '='
+WHITESPACE     ' '
+BASIC_STRING   "\"I\'m a string. \\\\\"You can quote me\\\\\". Name\\\\tJos\\\\u00E9\\\\nLocation\\\\tSF.\""
+LINE_END       '\n'
+LITERAL_STRING "\'key2\'"
+WHITESPACE     ' '
+ASSIGNMENT     '='
+WHITESPACE     ' '
+BASIC_STRING   '"value"'
+LINE_END       '\n'
+LITERAL_STRING "\'quoted \"value\"\'"
+WHITESPACE     ' '
+ASSIGNMENT     '='
+WHITESPACE     ' '
+BASIC_STRING   '"value"'
+LINE_END       '\n'
+BASIC_STRING   '""'
+WHITESPACE     ' '
+ASSIGNMENT     '='
+WHITESPACE     ' '
+BASIC_STRING   '"blank"'
+WHITESPACE     '     '
+COMMENT        '# VALID but discouraged'
+LINE_END       '\n'
+LITERAL_STRING "\'\'"
+WHITESPACE     ' '
+ASSIGNMENT     '='
+WHITESPACE     ' '
+LITERAL_STRING "\'blank\'"
+WHITESPACE     '     '
+COMMENT        '# VALID but discouraged'
+LINE_END       '\n'
