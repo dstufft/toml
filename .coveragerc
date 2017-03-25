@@ -1,0 +1,15 @@
+[run]
+branch = True
+source =
+  toml
+
+[paths]
+source =
+   src/toml
+   .tox/*/lib/python*/site-packages/toml
+   .tox/pypy/site-packages/toml
+
+[report]
+exclude_lines =
+    @abc.abstractmethod
+    @abc.abstractproperty
