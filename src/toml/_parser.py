@@ -7,6 +7,7 @@ from ._nodes import (
     OpenBracket, CloseBracket, OffsetDateTime, Integer, Boolean, Comma, Dot,
     LiteralString,
 )
+from ._utils import with_whitespace
 
 
 _token_to_node = {
@@ -40,8 +41,7 @@ def main(state, pack):
     return root
 
 
-@_pg.production("statements : statements statement")
-@_pg.production("statements : statements WHITESPACE statement")
+@with_whitespace(_pg, "statements : statements statement")
 def statements_statement(state, pack):
     statements = pack[0]
     whitespace = [_token_to_node[p.name](content=p.value) for p in pack[1:-1]]
@@ -61,8 +61,7 @@ def statement_line_end(state, pack):
     return line_end
 
 
-@_pg.production("statement : value_stmt line_end")
-@_pg.production("statement : value_stmt WHITESPACE line_end")
+@with_whitespace(_pg, "statement : value_stmt line_end")
 def statement_value_stmt(state, pack):
     value_stmt = pack[0]
     whitespace = [_token_to_node[p.name](content=p.value) for p in pack[1:-1]]
@@ -91,10 +90,8 @@ def line_end(state, pack):
 def comment(state, pack):
     return [_token_to_node[p.name](content=p.value) for p in pack]
 
-@_pg.production("value_stmt : value_key WHITESPACE ASSIGNMENT WHITESPACE value_type")  # noqa
-@_pg.production("value_stmt : value_key WHITESPACE ASSIGNMENT value_type")
-@_pg.production("value_stmt : value_key ASSIGNMENT WHITESPACE value_type")
-@_pg.production("value_stmt : value_key ASSIGNMENT value_type")
+
+@with_whitespace(_pg, "value_stmt : value_key ASSIGNMENT value_type")
 def value_stmt(state, pack):
     output = []
     for item in pack:
@@ -135,12 +132,8 @@ def value_type(state, pack):
     return _token_to_node[token.name](content=token.value)
 
 
-@_pg.production("value_type : OPEN_BRACKET CLOSE_BRACKET")
-@_pg.production("value_type : OPEN_BRACKET WHITESPACE CLOSE_BRACKET")
-@_pg.production("value_type : OPEN_BRACKET array_values CLOSE_BRACKET")
-@_pg.production("value_type : OPEN_BRACKET WHITESPACE array_values CLOSE_BRACKET")  # noqa
-@_pg.production("value_type : OPEN_BRACKET array_values WHITESPACE CLOSE_BRACKET")  # noqa
-@_pg.production("value_type : OPEN_BRACKET WHITESPACE array_values WHITESPACE CLOSE_BRACKET")  # noqa
+@with_whitespace(_pg, "value_type : OPEN_BRACKET CLOSE_BRACKET")
+@with_whitespace(_pg, "value_type : OPEN_BRACKET array_values CLOSE_BRACKET")
 def value_type_array(state, pack):
     array = Array()
     for item in pack:
@@ -154,11 +147,8 @@ def value_type_array(state, pack):
     return array
 
 
-@_pg.production("array_values : array_values COMMA value_type")
-@_pg.production("array_values : array_values WHITESPACE COMMA value_type")
-@_pg.production("array_values : array_values COMMA WHITESPACE value_type")
-@_pg.production("array_values : array_values WHITESPACE COMMA WHITESPACE value_type")  # noqa
-@_pg.production("array_values : value_type")
+@with_whitespace(_pg, "array_values : array_values COMMA value_type")
+@with_whitespace(_pg, "array_values : value_type")
 def array_values(state, pack):
     output = []
     for item in pack:
@@ -171,8 +161,7 @@ def array_values(state, pack):
     return output
 
 
-@_pg.production("statement : table_def line_end")
-@_pg.production("statement : table_def WHITESPACE line_end")
+@with_whitespace(_pg, "statement : table_def line_end")
 def statement_table_def(state, pack):
     table_def = pack[0]
     whitespace = [_token_to_node[p.name](content=p.value) for p in pack[1:-1]]
@@ -193,10 +182,7 @@ def statement_table_def(state, pack):
     return [table]
 
 
-@_pg.production("table_def : OPEN_BRACKET table_names CLOSE_BRACKET")
-@_pg.production("table_def : OPEN_BRACKET WHITESPACE table_names CLOSE_BRACKET")  # noqa
-@_pg.production("table_def : OPEN_BRACKET table_names WHITESPACE CLOSE_BRACKET")  # noqa
-@_pg.production("table_def : OPEN_BRACKET WHITESPACE table_names WHITESPACE CLOSE_BRACKET")  # noqa
+@with_whitespace(_pg, "table_def : OPEN_BRACKET table_names CLOSE_BRACKET")
 def table_def(state, pack):
     output = []
     for item in pack:
@@ -208,11 +194,8 @@ def table_def(state, pack):
     return output
 
 
-@_pg.production("table_names : table_name")
-@_pg.production("table_names : table_names PERIOD table_name")
-@_pg.production("table_names : table_names WHITESPACE PERIOD table_name")
-@_pg.production("table_names : table_names PERIOD WHITESPACE table_name")
-@_pg.production("table_names : table_names WHITESPACE PERIOD WHITESPACE table_name")  # noqa
+@with_whitespace(_pg, "table_names : table_names PERIOD table_name")
+@with_whitespace(_pg, "table_names : table_name")
 def table_names(state, pack):
     output = []
     for item in pack:
