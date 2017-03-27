@@ -78,8 +78,6 @@ def statement_value_stmt(state, pack):
             item.parent = state.current_table
         return []
 
-    # return [stmt] + whitespace + line_end
-
 
 @_pg.production("line_end : LINE_END")
 def line_end(state, pack):
