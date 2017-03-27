@@ -56,7 +56,7 @@ class Document(ContainerNode):
         return output
 
 
-class Statement(ContainerNode):
+class ValueStatement(ContainerNode):
 
     def compile(self):
         key, op, value = filter(is_not_noise, self.children)

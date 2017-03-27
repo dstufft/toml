@@ -1,7 +1,7 @@
 import rply
 import rply.errors
 
-from ._nodes import Array, Document, Statement, Table, TableName
+from ._nodes import Array, Document, Table, TableName, ValueStatement
 from ._nodes import (
     Assignment, BareKey, BasicString, Comment, LineEnd, Node, Whitespace,
     OpenBracket, CloseBracket, OffsetDateTime, Integer, Boolean, Comma, Dot,
@@ -84,7 +84,7 @@ def statement_value_stmt(state, pack):
     whitespace = [_token_to_node[p.name](content=p.value) for p in pack[1:-1]]
     line_end = pack[-1]
 
-    stmt = Statement()
+    stmt = ValueStatement()
     for item in value_stmt:
         item.parent = stmt
 
