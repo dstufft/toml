@@ -88,10 +88,10 @@ def line_end(state, pack):
 def comment(state, pack):
     return [_token_to_node[p.name](content=p.value) for p in pack]
 
-@_pg.production("value_stmt : BARE_KEY WHITESPACE ASSIGNMENT WHITESPACE value_type")  # noqa
-@_pg.production("value_stmt : BARE_KEY WHITESPACE ASSIGNMENT value_type")
-@_pg.production("value_stmt : BARE_KEY ASSIGNMENT WHITESPACE value_type")
-@_pg.production("value_stmt : BARE_KEY ASSIGNMENT value_type")
+@_pg.production("value_stmt : value_key WHITESPACE ASSIGNMENT WHITESPACE value_type")  # noqa
+@_pg.production("value_stmt : value_key WHITESPACE ASSIGNMENT value_type")
+@_pg.production("value_stmt : value_key ASSIGNMENT WHITESPACE value_type")
+@_pg.production("value_stmt : value_key ASSIGNMENT value_type")
 def value_stmt(state, pack):
     output = []
     for item in pack:
@@ -100,6 +100,25 @@ def value_stmt(state, pack):
         else:
             output.append(_token_to_node[item.name](content=item.value))
     return output
+
+
+@_pg.production("value_key : BARE_KEY")
+@_pg.production("value_key : INTEGER")
+@_pg.production("value_key : BASIC_STRING")
+def value_key(state, pack):
+    token, = pack
+
+    # THis is a total hack. Unfortunately our lexer isn't smart enough to
+    # differentiate a integer bare key from an actual integer in all of the
+    # cases, so we give up and allow an integer here even though it's not
+    # allowed and we'll treat it as a bare key. This includes needing to do
+    # extra validation because INTEGER accepts values that are not valid in a
+    # BARE_KEY.
+    if token.name == "INTEGER":
+        # TODO: Extra Validation
+        return BareKey(content=token.value)
+
+    return _token_to_node[token.name](content=token.value)
 
 
 @_pg.production("value_type : BASIC_STRING")
