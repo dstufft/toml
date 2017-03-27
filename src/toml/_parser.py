@@ -1,4 +1,5 @@
 import rply
+import rply.errors
 
 from ._nodes import Array, Document, Statement, Table, TableName
 from ._nodes import (
@@ -118,7 +119,8 @@ def value_key(state, pack):
     # extra validation because INTEGER accepts values that are not valid in a
     # BARE_KEY.
     if token.name == "INTEGER":
-        # TODO: Extra Validation
+        if token.value.startswith("+"):
+            raise rply.ParsingError(None, token.getsourcepos())
         return BareKey(content=token.value)
 
     return _token_to_node[token.name](content=token.value)
