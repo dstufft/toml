@@ -10,5 +10,5 @@ setup(
     packages=find_packages(where="src"),
     include_package_data=True,
 
-    install_requires=["rply"],
+    install_requires=["anytree", "rply"],
 )
