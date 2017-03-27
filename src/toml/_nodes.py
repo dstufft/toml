@@ -67,7 +67,11 @@ class Table(Node):
 
 
 class Array(Node):
-    pass
+
+    def compile(self):
+        assert isinstance(self.children[0], OpenBracket)
+        assert isinstance(self.children[-1], CloseBracket)
+        return [n.compile() for n in filter(is_not_noise, self.children[1:-1])]
 
 
 class ContentNode(Node):
@@ -126,11 +130,15 @@ class BasicString(ContentNode):
 
 
 class Integer(ContentNode):
-    pass
+
+    def compile(self):
+        return int(self.content)
 
 
 class Boolean(ContentNode):
-    pass
+
+    def compile(self):
+        return {"true": True, "false": False}[self.content]
 
 
 class OffsetDateTime(ContentNode):

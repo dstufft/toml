@@ -3,8 +3,8 @@ import copy
 
 
 def is_not_noise(node):
-    from ._nodes import Whitespace, Comment, LineEnd, Dot
-    return not isinstance(node, (Whitespace, Comment, LineEnd, Dot))
+    from ._nodes import Whitespace, Comment, LineEnd, Dot, Comma
+    return not isinstance(node, (Whitespace, Comment, LineEnd, Dot, Comma))
 
 
 def merge(to, from_):
