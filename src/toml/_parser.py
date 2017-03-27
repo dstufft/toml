@@ -33,10 +33,27 @@ _pg = rply.ParserGenerator(_token_to_node.keys())
 
 @_pg.production("main : statements")
 def main(state, pack):
-    root = Document()
     statements, = pack
+
+    # Build our final Document up, correctly parenting items to the root of the
+    # document or within the last Table.
+    root = Document()
+    table = None
     for statement in statements:
-        statement.parent = root
+        # Table instances always are children of the root node, but we also
+        # need to record whatever the last Table instance we saw was.
+        if isinstance(statement, Table):
+            table = statement
+            table.parent = root
+        # If we had not yet gotten a Table, then everything we see is a child
+        # of the root node.
+        elif table is None:
+            statement.parent = root
+        # Finally, if we've gotten a table at some point, then everything from
+        # that point on (except for other Table instances!) are children of the
+        # most recent Table node.
+        else:
+            statement.parent = table
 
     return root
 
@@ -71,14 +88,7 @@ def statement_value_stmt(state, pack):
     for item in value_stmt:
         item.parent = stmt
 
-    output = [stmt] + whitespace + line_end
-
-    if state.current_table is None:
-        return output
-    else:
-        for item in output:
-            item.parent = state.current_table
-        return []
+    return [stmt] + whitespace + line_end
 
 
 @_pg.production("line_end : LINE_END")
@@ -167,7 +177,7 @@ def statement_table_def(state, pack):
     whitespace = [_token_to_node[p.name](content=p.value) for p in pack[1:-1]]
     line_end = pack[-1]
 
-    state.current_table = table = Table()
+    table = Table()
     table_name = TableName()
     for item in table_def:
         if isinstance(item, list):
@@ -216,9 +226,7 @@ _parser = _pg.build()
 
 
 class ParserState:
-
-    def __init__(self):
-        self.current_table = None
+    pass
 
 
 def parse(token_stream):
