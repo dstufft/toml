@@ -31,8 +31,8 @@ _token_to_node = {
 _pg = rply.ParserGenerator(_token_to_node.keys())
 
 
-@_pg.production("main : statements")
-def main(state, pack):
+@_pg.production("toml : statements")
+def toml(state, pack):
     statements, = pack
 
     # Build our final Document up, correctly parenting items to the root of the
