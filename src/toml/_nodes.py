@@ -129,6 +129,13 @@ class BasicString(ContentNode):
         return self.content[1:-1]
 
 
+class LiteralString(ContentNode):
+
+    def compile(self):
+        # TODO: Learn 2 compile
+        return self.content[1:-1]
+
+
 class Integer(ContentNode):
 
     def compile(self):

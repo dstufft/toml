@@ -4,6 +4,7 @@ from ._nodes import Array, Document, Statement, Table, TableName
 from ._nodes import (
     Assignment, BareKey, BasicString, Comment, LineEnd, Node, Whitespace,
     OpenBracket, CloseBracket, OffsetDateTime, Integer, Boolean, Comma, Dot,
+    LiteralString,
 )
 
 
@@ -11,6 +12,7 @@ _token_to_node = {
     "ASSIGNMENT": Assignment,
     "BARE_KEY": BareKey,
     "BASIC_STRING": BasicString,
+    "LITERAL_STRING": LiteralString,
     "BOOLEAN": Boolean,
     "INTEGER": Integer,
     "OFFSET_DATETIME": OffsetDateTime,
@@ -105,6 +107,7 @@ def value_stmt(state, pack):
 @_pg.production("value_key : BARE_KEY")
 @_pg.production("value_key : INTEGER")
 @_pg.production("value_key : BASIC_STRING")
+@_pg.production("value_key : LITERAL_STRING")
 def value_key(state, pack):
     token, = pack
 
