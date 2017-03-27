@@ -10,8 +10,44 @@ class Node(anytree.NodeMixin):
     def __repr__(self):
         return "{}()".format(self.__class__.__name__)
 
+    def compile(self):
+        raise NotImplementedError(
+            "{} does not implement compile.".format(self.__class__.__name__))
 
-class Document(Node):
+    def render(self):
+        raise NotImplementedError(
+            "{} does not implement render.".format(self.__class__.__name__))
+
+
+class ContainerNode(Node):
+    # While all nodes can *technically* contain other nodes, a ContainerNode
+    # contains additional functionality that makes it much easier to work with
+    # a node whose only purpose is to act as a container.
+
+    def render(self):
+        output = []
+        for node in self.children:
+            output.append(node.render())
+        return "".join(output)
+
+
+class ContentNode(Node):
+    # ContentNodes do not contain other nodes (even though they technically
+    # have the ability to do so), instead they hold onto a chunk of content
+    # that originally came from our parsed TOML document.
+
+    def __init__(self, content, **kwargs):
+        self.content = content
+        return super(ContentNode, self).__init__(**kwargs)
+
+    def __repr__(self):
+        return "{}(content={!r})".format(self.__class__.__name__, self.content)
+
+    def render(self):
+        return self.content
+
+
+class Document(ContainerNode):
 
     def compile(self):
         output = {}
@@ -20,7 +56,7 @@ class Document(Node):
         return output
 
 
-class Statement(Node):
+class Statement(ContainerNode):
 
     def compile(self):
         key, op, value = filter(is_not_noise, self.children)
@@ -28,7 +64,7 @@ class Statement(Node):
         return {key.compile(): value.compile()}
 
 
-class TableName(Node):
+class TableName(ContainerNode):
 
     def compile(self):
         children = list(filter(is_not_noise, self.children))
@@ -40,7 +76,7 @@ class TableName(Node):
         return [n.compile() for n in name_parts]
 
 
-class Table(Node):
+class Table(ContainerNode):
 
     def compile(self):
         output = {}
@@ -66,22 +102,12 @@ class Table(Node):
         return output
 
 
-class Array(Node):
+class Array(ContainerNode):
 
     def compile(self):
         assert isinstance(self.children[0], OpenBracket)
         assert isinstance(self.children[-1], CloseBracket)
         return [n.compile() for n in filter(is_not_noise, self.children[1:-1])]
-
-
-class ContentNode(Node):
-
-    def __init__(self, content, **kwargs):
-        self.content = content
-        return super(ContentNode, self).__init__(**kwargs)
-
-    def __repr__(self):
-        return "{}(content={!r})".format(self.__class__.__name__, self.content)
 
 
 class LineEnd(ContentNode):
