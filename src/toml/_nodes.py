@@ -1,4 +1,8 @@
+import datetime
+
 import anytree
+
+from ._utils import is_not_noise, merge
 
 
 class Node(anytree.NodeMixin):
@@ -8,15 +12,58 @@ class Node(anytree.NodeMixin):
 
 
 class Document(Node):
-    pass
+
+    def compile(self):
+        output = {}
+        for node in filter(is_not_noise, self.children):
+            output = merge(output, node.compile())
+        return output
 
 
 class Statement(Node):
-    pass
+
+    def compile(self):
+        key, op, value = filter(is_not_noise, self.children)
+        assert isinstance(op, Assignment)
+        return {key.compile(): value.compile()}
+
+
+class TableName(Node):
+
+    def compile(self):
+        children = list(filter(is_not_noise, self.children))
+        openb, name_parts, closeb = children[0], children[1:-1], children[-1]
+
+        assert isinstance(openb, OpenBracket)
+        assert isinstance(closeb, CloseBracket)
+
+        return [n.compile() for n in name_parts]
 
 
 class Table(Node):
-    pass
+
+    def compile(self):
+        output = {}
+
+        # The very first item in our children should *always* be a TableName
+        # node.
+        assert isinstance(self.children[0], TableName)
+        name = self.children[0].compile()
+
+        # Go through all of the names and generate our dictionary values as
+        # well as get the "current" (e.g. the one we're currently acting on")
+        # dictionary.
+        current, previous = output, None
+        for level in name:
+            previous = current
+            current[level] = current = {}
+
+        # Now that we have our current dictionary, we can go through the rest
+        # of the children and compile them.
+        for node in filter(is_not_noise, self.children[1:]):
+            previous[level] = merge(previous[level], node.compile())
+
+        return output
 
 
 class Array(Node):
@@ -62,7 +109,9 @@ class Dot(ContentNode):
 
 
 class BareKey(ContentNode):
-    pass
+
+    def compile(self):
+        return self.content
 
 
 class Assignment(ContentNode):
@@ -70,7 +119,10 @@ class Assignment(ContentNode):
 
 
 class BasicString(ContentNode):
-    pass
+
+    def compile(self):
+        # TODO: How do I actually complile a string? HALP.
+        return self.content[1:-1]
 
 
 class Integer(ContentNode):
@@ -82,4 +134,12 @@ class Boolean(ContentNode):
 
 
 class OffsetDateTime(ContentNode):
-    pass
+
+    def compile(self):
+        if self.content.endswith("Z"):
+            return datetime.datetime.strptime(
+                self.content, "%Y-%m-%dT%H:%M:%SZ")
+        else:
+            assert self.content[-3] == ":"
+            content = self.content[:-3] + self.content[-2:]
+            return datetime.datetime.strptime(content, "%Y-%m-%dT%H:%M:%S%z")

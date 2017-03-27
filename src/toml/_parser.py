@@ -1,6 +1,6 @@
 import rply
 
-from ._nodes import Array, Document, Statement, Table
+from ._nodes import Array, Document, Statement, Table, TableName
 from ._nodes import (
     Assignment, BareKey, BasicString, Comment, LineEnd, Node, Whitespace,
     OpenBracket, CloseBracket, OffsetDateTime, Integer, Boolean, Comma, Dot,
@@ -69,7 +69,16 @@ def statement_value_stmt(state, pack):
     for item in value_stmt:
         item.parent = stmt
 
-    return [stmt] + whitespace + line_end
+    output = [stmt] + whitespace + line_end
+
+    if state.current_table is None:
+        return output
+    else:
+        for item in output:
+            item.parent = state.current_table
+        return []
+
+    # return [stmt] + whitespace + line_end
 
 
 @_pg.production("line_end : LINE_END")
@@ -147,11 +156,19 @@ def statement_table_def(state, pack):
     whitespace = [_token_to_node[p.name](content=p.value) for p in pack[1:-1]]
     line_end = pack[-1]
 
-    table = Table()
+    state.current_table = table = Table()
+    table_name = TableName()
     for item in table_def:
+        if isinstance(item, list):
+            for sitem in item:
+                sitem.parent = table_name
+        else:
+            item.parent = table_name
+
+    for item in ([table_name] + whitespace + line_end):
         item.parent = table
 
-    return [table] + whitespace + line_end
+    return [table]
 
 
 @_pg.production("table_def : OPEN_BRACKET table_names CLOSE_BRACKET")
@@ -194,7 +211,9 @@ _parser = _pg.build()
 
 
 class ParserState:
-    pass
+
+    def __init__(self):
+        self.current_table = None
 
 
 def parse(token_stream):
